@@ -11,7 +11,7 @@ public class RegisterLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_location);
 
-        Intent intent = new Intent(this, LocationService.class);
-        startService(intent);
+        //Intent intent = new Intent(this, LocationService.class);
+        //startService(intent);
     }
 }
