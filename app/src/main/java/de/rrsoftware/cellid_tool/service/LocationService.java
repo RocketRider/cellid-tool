@@ -1,4 +1,4 @@
-package de.rrsoftware.cellid_tool;
+package de.rrsoftware.cellid_tool.service;
 
 import android.app.Service;
 import android.content.Context;
@@ -20,7 +20,7 @@ public class LocationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        tm.listen(new CellListener(tm), PhoneStateListener.LISTEN_CELL_LOCATION | PhoneStateListener.LISTEN_CELL_INFO);
+        tm.listen(new CellListener(getApplicationContext(), tm), PhoneStateListener.LISTEN_CELL_LOCATION | PhoneStateListener.LISTEN_CELL_INFO);
 
         return super.onStartCommand(intent, flags, startId);
     }
