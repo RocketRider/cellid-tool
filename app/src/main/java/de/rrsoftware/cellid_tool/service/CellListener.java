@@ -24,10 +24,12 @@ public class CellListener extends PhoneStateListener {
     private static final String LOGTAG = "CellListener";
     private Context context;
     private TelephonyManager tm;
+    private LocationManager lc;
 
     public CellListener(Context context, TelephonyManager tm) {
         this.context = context;
         this.tm = tm;
+        lc = LocationManager.getInstance(context);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class CellListener extends PhoneStateListener {
     private void checkCell() {
         GsmCellLocation cellLocation = (GsmCellLocation) tm.getCellLocation();
         Log.d(LOGTAG, cellLocation.toString());
-        if (!LocationManager.isCellKnown(cellLocation.getCid())) {
+        if (!lc.isCellKnown(cellLocation.getCid())) {
             Log.d(LOGTAG, "Unknown cell: " + cellLocation.toString());
             notityUser(cellLocation.getCid());
         } else {
