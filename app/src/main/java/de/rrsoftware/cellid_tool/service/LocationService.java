@@ -8,8 +8,8 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 public class LocationService extends Service {
-    public LocationService() {
-    }
+    private TelephonyManager tm;
+    private CellListener listener;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -18,10 +18,16 @@ public class LocationService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        tm.listen(new CellListener(getApplicationContext(), tm), PhoneStateListener.LISTEN_CELL_LOCATION | PhoneStateListener.LISTEN_CELL_INFO);
+    public void onCreate() {
+        super.onCreate();
+        tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        listener = new CellListener(getApplicationContext(), tm);
+        tm.listen(listener, PhoneStateListener.LISTEN_CELL_LOCATION | PhoneStateListener.LISTEN_CELL_INFO);
+    }
 
-        return super.onStartCommand(intent, flags, startId);
+    @Override
+    public void onDestroy() {
+        tm.listen(listener, PhoneStateListener.LISTEN_NONE);
+        super.onDestroy();
     }
 }

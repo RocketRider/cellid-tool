@@ -62,6 +62,7 @@ public class CellListener extends PhoneStateListener {
                         .setContentText(String.valueOf(cellid));
 
         Intent resultIntent = new Intent(context, RegisterLocationActivity.class);
+        resultIntent.putExtra(RegisterLocationActivity.CELL_ID, cellid);
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                         context,
