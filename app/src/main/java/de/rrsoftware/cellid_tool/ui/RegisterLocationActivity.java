@@ -14,6 +14,7 @@ import de.rrsoftware.cellid_tool.model.LocationManager;
 public class RegisterLocationActivity extends AppCompatActivity {
     public static final String CELL_ID = "CellId";
     private int cellId;
+    private LocationManager lm;
 
     @BindView(R.id.cid)
     TextView cidView;
@@ -26,15 +27,22 @@ public class RegisterLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_location);
         ButterKnife.bind(this);
+        lm = LocationManager.getInstance(this);
 
         cellId = getIntent().getIntExtra(CELL_ID, 0);
         cidView.setText(String.valueOf(cellId));
+        placeView.setText(lm.getDescription(cellId));
     }
 
     @OnClick(R.id.save)
     void submit() {
-        LocationManager lc = LocationManager.getInstance(this);
-        lc.addLocation(cellId, placeView.getText().toString());
+        lm.addLocation(cellId, placeView.getText().toString());
+        finish();
+    }
+
+    @OnClick(R.id.delete)
+    void delete() {
+        lm.deleteLocation(cellId);
         finish();
     }
 }

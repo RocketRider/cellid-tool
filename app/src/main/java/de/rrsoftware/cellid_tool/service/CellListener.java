@@ -59,6 +59,7 @@ public class CellListener extends PhoneStateListener {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_vpn_lock_black_24dp)
                         .setContentTitle("Neue Zelle gefunden")
+                        .setAutoCancel(true)
                         .setContentText(String.valueOf(cellid));
 
         Intent resultIntent = new Intent(context, RegisterLocationActivity.class);

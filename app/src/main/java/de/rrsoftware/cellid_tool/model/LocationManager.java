@@ -32,6 +32,14 @@ public class LocationManager {
         return instance;
     }
 
+    public Integer[] getAllCellIds() {
+        return locations.keySet().toArray(new Integer[locations.keySet().size()]);
+    }
+
+
+    public String getDescription(final int cellid) {
+        return locations.get(cellid);
+    }
 
     public boolean isCellKnown(final int cellid) {
         return locations.containsKey(cellid);
@@ -84,4 +92,7 @@ public class LocationManager {
         }
     }
 
+    public void deleteLocation(int cellId) {
+        locations.remove(cellId);
+    }
 }
