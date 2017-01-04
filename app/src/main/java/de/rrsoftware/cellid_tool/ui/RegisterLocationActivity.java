@@ -1,5 +1,6 @@
 package de.rrsoftware.cellid_tool.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.rrsoftware.cellid_tool.R;
+import de.rrsoftware.cellid_tool.camera.CameraActivity;
 import de.rrsoftware.cellid_tool.model.LocationManager;
 
 public class RegisterLocationActivity extends AppCompatActivity {
@@ -32,6 +34,12 @@ public class RegisterLocationActivity extends AppCompatActivity {
         cellId = getIntent().getIntExtra(CELL_ID, 0);
         cidView.setText(String.valueOf(cellId));
         placeView.setText(lm.getDescription(cellId));
+    }
+
+    @OnClick(R.id.addPicture)
+    void addPicture() {
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.save)
