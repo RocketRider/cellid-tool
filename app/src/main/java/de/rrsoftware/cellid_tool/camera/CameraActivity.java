@@ -56,9 +56,9 @@ public class CameraActivity extends AppCompatActivity {
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
-    protected CameraDevice cameraDevice;
-    protected CameraCaptureSession cameraCaptureSessions;
-    protected CaptureRequest.Builder captureRequestBuilder;
+    private CameraDevice cameraDevice;
+    private CameraCaptureSession cameraCaptureSessions;
+    private CaptureRequest.Builder captureRequestBuilder;
     private Size imageDimension;
     private ImageReader imageReader;
     private Handler mBackgroundHandler;
@@ -101,18 +101,20 @@ public class CameraActivity extends AppCompatActivity {
 
         @Override
         public void onDisconnected(@NonNull CameraDevice camera) {
+            Log.e(LOGTAG, "Camera disconnected");
             cameraDevice.close();
         }
 
         @Override
         public void onError(@NonNull CameraDevice camera, int error) {
+            Log.e(LOGTAG, "Camera error. Errorcode: " + error);
             cameraDevice.close();
             cameraDevice = null;
         }
     };
 
     protected void startBackgroundThread() {
-        mBackgroundThread = new HandlerThread("Camera Background");
+        mBackgroundThread = new HandlerThread("Camera thread");
         mBackgroundThread.start();
         mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
     }
@@ -166,9 +168,9 @@ public class CameraActivity extends AppCompatActivity {
                         buffer.get(bytes);
                         save(bytes);
                     } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                        Log.e(LOGTAG, "File not found", e);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.e(LOGTAG, "File error", e);
                     } finally {
                         if (image != null) {
                             image.close();
@@ -216,7 +218,7 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    protected void createCameraPreview() {
+    private void createCameraPreview() {
         try {
             SurfaceTexture texture = textureView.getSurfaceTexture();
             assert texture != null;
