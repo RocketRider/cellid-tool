@@ -1,10 +1,14 @@
 package de.rrsoftware.cellid_tool.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,21 +28,36 @@ public class RegisterLocationActivity extends AppCompatActivity {
     @BindView(R.id.place)
     TextInputEditText placeView;
 
+    @BindView(R.id.image)
+    ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_location);
         ButterKnife.bind(this);
         lm = LocationManager.getInstance(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         cellId = getIntent().getIntExtra(CELL_ID, 0);
         cidView.setText(String.valueOf(cellId));
         placeView.setText(lm.getDescription(cellId));
+
+        File imageFile = new File(getExternalFilesDir(null), cellId + ".jpg");
+        if (imageFile.exists()) {
+            imageView.setImageDrawable(null);
+            imageView.setImageURI(Uri.fromFile(imageFile));
+        }
     }
 
     @OnClick(R.id.addPicture)
     void addPicture() {
         Intent intent = new Intent(this, CameraActivity.class);
+        intent.putExtra(CameraActivity.CELL_ID, cellId);
         startActivity(intent);
     }
 
