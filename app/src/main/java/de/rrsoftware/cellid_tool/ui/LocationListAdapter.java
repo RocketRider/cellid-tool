@@ -50,7 +50,7 @@ public class LocationListAdapter extends ArrayAdapter<Integer> {
         cidView.setText(String.valueOf(cellId));
         descView.setText(lm.getDescription(cellId));
 
-        File imageFile = new File(getContext().getExternalFilesDir(null), cellId + ".jpg");
+        File imageFile = new File(getContext().getFilesDir(), cellId + ".jpg");
         if (imageFile.exists()) {
             imageView.setImageDrawable(null);
             imageView.setImageURI(Uri.fromFile(imageFile));

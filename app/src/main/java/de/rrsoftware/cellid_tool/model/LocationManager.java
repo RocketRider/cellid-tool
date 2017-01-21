@@ -17,11 +17,13 @@ public class LocationManager {
     private static LocationManager instance;
 
     private File file;
-    private Map<Integer, String> locations = new HashMap<>();
+    private File dir;
+    private Map<Integer, LocationItem> locations = new HashMap<>();
 
 
     private LocationManager(Context context) {
-        file = new File(context.getFilesDir(), "map");
+        dir = context.getFilesDir();
+        file = new File(dir, "map");
         loadLocations();
     }
 
@@ -38,15 +40,35 @@ public class LocationManager {
 
 
     public String getDescription(final int cellid) {
-        return locations.get(cellid);
+        if (locations.containsKey(cellid)) {
+            return locations.get(cellid).getDesc();
+        } else {
+            return "";
+        }
+    }
+
+    public double getLatitude(final int cellid) {
+        if (locations.containsKey(cellid)) {
+            return locations.get(cellid).getLatitude();
+        } else {
+            return 0.;
+        }
+    }
+
+    public double getLongitude(final int cellid) {
+        if (locations.containsKey(cellid)) {
+            return locations.get(cellid).getLongitude();
+        } else {
+            return 0.;
+        }
     }
 
     public boolean isCellKnown(final int cellid) {
         return locations.containsKey(cellid);
     }
 
-    public void addLocation(int cellid, String desc) {
-        locations.put(cellid, desc);
+    public void addLocation(int cellid, String desc, double latitude, double longitude) {
+        locations.put(cellid, new LocationItem(desc, latitude, longitude));
         saveLocations();
     }
 
@@ -55,7 +77,7 @@ public class LocationManager {
         ObjectInputStream stream = null;
         try {
             stream = new ObjectInputStream(new FileInputStream(file));
-            locations = (Map<Integer, String>) stream.readObject();
+            locations = (Map<Integer, LocationItem>) stream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             Log.e(LOGTAG, "failed to open stream", e);
         } finally {
@@ -94,5 +116,7 @@ public class LocationManager {
 
     public void deleteLocation(int cellId) {
         locations.remove(cellId);
+        new File(dir, cellId + ".jpg").delete();
+        saveLocations();
     }
 }

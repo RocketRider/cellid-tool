@@ -47,7 +47,7 @@ public class RegisterLocationActivity extends AppCompatActivity {
         cidView.setText(String.valueOf(cellId));
         placeView.setText(lm.getDescription(cellId));
 
-        File imageFile = new File(getExternalFilesDir(null), cellId + ".jpg");
+        File imageFile = new File(getFilesDir(), cellId + ".jpg");
         if (imageFile.exists()) {
             imageView.setImageDrawable(null);
             imageView.setImageURI(Uri.fromFile(imageFile));
@@ -63,7 +63,7 @@ public class RegisterLocationActivity extends AppCompatActivity {
 
     @OnClick(R.id.save)
     void submit() {
-        lm.addLocation(cellId, placeView.getText().toString());
+        lm.addLocation(cellId, placeView.getText().toString(), 0, 0);
         finish();
     }
 

@@ -401,7 +401,7 @@ public class CameraActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         int cellId = getIntent().getIntExtra(CELL_ID, 0);
-        mFile = new File(getExternalFilesDir(null), cellId + ".jpg");
+        mFile = new File(getFilesDir(), cellId + ".jpg");
     }
 
     @Override
