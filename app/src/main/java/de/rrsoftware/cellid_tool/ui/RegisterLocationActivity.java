@@ -21,6 +21,7 @@ import de.rrsoftware.cellid_tool.camera.CameraActivity;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
 
 public class RegisterLocationActivity extends AppCompatActivity {
+    private static final String LOGTAG = "RegisterActivity";
     public static final String CELL_ID = "CellId";
     private int cellId;
     private CellLocationManager lm;
@@ -30,6 +31,12 @@ public class RegisterLocationActivity extends AppCompatActivity {
 
     @BindView(R.id.place)
     TextInputEditText placeView;
+
+    @BindView(R.id.latitude)
+    TextInputEditText latitudeView;
+
+    @BindView(R.id.longitude)
+    TextInputEditText longitudeView;
 
     @BindView(R.id.image)
     ImageView imageView;
@@ -49,10 +56,17 @@ public class RegisterLocationActivity extends AppCompatActivity {
         cellId = getIntent().getIntExtra(CELL_ID, 0);
         if (lm.isCellKnown(cellId)) {
             cidView.setText(String.valueOf(cellId));
-            placeView.setText(lm.getDescription(cellId));
+
+            if (placeView.getText().length() == 0){
+                placeView.setText(lm.getDescription(cellId));
+            }
+
+            latitudeView.setText(String.valueOf(lm.getLatitude(cellId)));
+            longitudeView.setText(String.valueOf(lm.getLongitude(cellId)));
         } else {
             Location gpsLocation = getGPSLocation();
-            Log.wtf("TEST", gpsLocation.getLatitude() + ", " + gpsLocation.getLongitude());
+            latitudeView.setText(String.valueOf(gpsLocation.getLatitude()));
+            longitudeView.setText(String.valueOf(gpsLocation.getLongitude()));
         }
 
         File imageFile = new File(getFilesDir(), cellId + ".jpg");
@@ -60,8 +74,6 @@ public class RegisterLocationActivity extends AppCompatActivity {
             imageView.setImageDrawable(null);
             imageView.setImageURI(Uri.fromFile(imageFile));
         }
-
-
     }
 
     @OnClick(R.id.addPicture)
@@ -73,7 +85,14 @@ public class RegisterLocationActivity extends AppCompatActivity {
 
     @OnClick(R.id.save)
     void submit() {
-        lm.addLocation(cellId, placeView.getText().toString(), 0, 0);
+        double latitude = 0, longitude = 0;
+        try {
+            latitude = Double.parseDouble(latitudeView.getText().toString());
+            longitude = Double.parseDouble(longitudeView.getText().toString());
+        } catch (NumberFormatException e) {
+            Log.e(LOGTAG, "failed to parse location");
+        }
+        lm.addLocation(cellId, placeView.getText().toString(), latitude, longitude);
         finish();
     }
 

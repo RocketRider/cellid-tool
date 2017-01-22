@@ -2,8 +2,8 @@ package de.rrsoftware.cellid_tool.ui;
 
 import android.Manifest;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -14,7 +14,6 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.util.List;
 
 import de.rrsoftware.cellid_tool.R;
-import de.rrsoftware.cellid_tool.camera.CameraActivity;
 
 public class PermissionActivity extends AppCompatActivity {
 
@@ -24,7 +23,6 @@ public class PermissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_permission);
         askForPermissions();
     }
-
 
     private void askForPermissions() {
         Dexter.withActivity(this)
@@ -40,6 +38,7 @@ public class PermissionActivity extends AppCompatActivity {
                 if (report.areAllPermissionsGranted()) {
                     Intent intent = new Intent(PermissionActivity.this, ListLocationsActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     askForPermissions();
                 }
