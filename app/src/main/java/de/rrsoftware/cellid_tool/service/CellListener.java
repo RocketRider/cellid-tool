@@ -15,7 +15,7 @@ import android.util.Log;
 import java.util.List;
 
 import de.rrsoftware.cellid_tool.R;
-import de.rrsoftware.cellid_tool.model.LocationManager;
+import de.rrsoftware.cellid_tool.model.CellLocationManager;
 import de.rrsoftware.cellid_tool.ui.RegisterLocationActivity;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -24,12 +24,12 @@ public class CellListener extends PhoneStateListener {
     private static final String LOGTAG = "CellListener";
     private Context context;
     private TelephonyManager tm;
-    private LocationManager lc;
+    private CellLocationManager lc;
 
     public CellListener(Context context, TelephonyManager tm) {
         this.context = context;
         this.tm = tm;
-        lc = LocationManager.getInstance(context);
+        lc = CellLocationManager.getInstance(context);
     }
 
     @Override

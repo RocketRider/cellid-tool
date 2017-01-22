@@ -14,15 +14,15 @@ import android.widget.TextView;
 import java.io.File;
 
 import de.rrsoftware.cellid_tool.R;
-import de.rrsoftware.cellid_tool.model.LocationManager;
+import de.rrsoftware.cellid_tool.model.CellLocationManager;
 
 public class LocationListAdapter extends ArrayAdapter<Integer> {
-    private LocationManager lm;
+    private CellLocationManager lm;
 
 
     public LocationListAdapter(Context context, Integer[] objects) {
         super(context, -1, objects);
-        lm = LocationManager.getInstance(context);
+        lm = CellLocationManager.getInstance(context);
     }
 
 

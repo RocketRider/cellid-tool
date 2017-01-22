@@ -12,24 +12,24 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocationManager {
-    private static String LOGTAG = "LocationManager";
-    private static LocationManager instance;
+public class CellLocationManager {
+    private static String LOGTAG = "CellLocationManager";
+    private static CellLocationManager instance;
 
     private File file;
     private File dir;
     private Map<Integer, LocationItem> locations = new HashMap<>();
 
 
-    private LocationManager(Context context) {
+    private CellLocationManager(Context context) {
         dir = context.getFilesDir();
         file = new File(dir, "map");
         loadLocations();
     }
 
-    public static LocationManager getInstance(Context context) {
+    public static CellLocationManager getInstance(Context context) {
         if (instance == null) {
-            instance = new LocationManager(context);
+            instance = new CellLocationManager(context);
         }
         return instance;
     }

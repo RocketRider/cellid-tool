@@ -8,7 +8,7 @@ import android.widget.ListView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.rrsoftware.cellid_tool.R;
-import de.rrsoftware.cellid_tool.model.LocationManager;
+import de.rrsoftware.cellid_tool.model.CellLocationManager;
 import de.rrsoftware.cellid_tool.service.LocationService;
 
 public class ListLocationsActivity extends AppCompatActivity {
@@ -31,7 +31,7 @@ public class ListLocationsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        LocationManager lm = LocationManager.getInstance(this);
+        CellLocationManager lm = CellLocationManager.getInstance(this);
         listView.setAdapter(new LocationListAdapter(this, lm.getAllCellIds()));
     }
 }
