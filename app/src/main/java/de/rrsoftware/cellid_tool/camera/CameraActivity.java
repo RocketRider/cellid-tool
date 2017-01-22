@@ -764,6 +764,7 @@ public class CameraActivity extends AppCompatActivity {
                     showToast("Saved: " + mFile);
                     Log.d(TAG, mFile.toString());
                     unlockFocus();
+                    finish();
                 }
             };
 
