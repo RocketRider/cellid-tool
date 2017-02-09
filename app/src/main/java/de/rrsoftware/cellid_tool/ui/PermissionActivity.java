@@ -21,7 +21,7 @@ public class PermissionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permission);
-        askForPermissions();
+        //askForPermissions();
     }
 
     private void askForPermissions() {
@@ -49,5 +49,12 @@ public class PermissionActivity extends AppCompatActivity {
                 token.continuePermissionRequest();
             }
         }).onSameThread().check();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        askForPermissions();
     }
 }
