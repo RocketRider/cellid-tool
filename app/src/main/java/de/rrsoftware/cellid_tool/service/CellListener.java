@@ -45,12 +45,16 @@ public class CellListener extends PhoneStateListener {
 
     private void checkCell() {
         GsmCellLocation cellLocation = (GsmCellLocation) tm.getCellLocation();
-        Log.d(LOGTAG, cellLocation.toString());
-        if (!lc.isCellKnown(cellLocation.getCid())) {
-            Log.d(LOGTAG, "Unknown cell: " + cellLocation.toString());
-            notityUser(cellLocation.getCid());
-        } else {
-            Log.d(LOGTAG, "Already known cell: " + cellLocation.toString());
+        if (cellLocation != null) {
+            Log.d(LOGTAG, cellLocation.toString());
+            if (!lc.isCellKnown(cellLocation.getCid())) {
+                Log.d(LOGTAG, "Unknown cell: " + cellLocation.toString());
+                notityUser(cellLocation.getCid());
+            } else {
+                Log.d(LOGTAG, "Already known cell: " + cellLocation.toString());
+            }
+        }else{
+            Log.e(LOGTAG, "cellLocation is null");
         }
     }
 
