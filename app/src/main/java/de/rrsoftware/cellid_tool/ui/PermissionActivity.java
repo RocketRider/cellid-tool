@@ -36,13 +36,12 @@ public class PermissionActivity extends AppCompatActivity {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
                 if (report.areAllPermissionsGranted()) {
-                    Intent intent = new Intent(PermissionActivity.this, ListLocationsActivity.class);
-                    startActivity(intent);
-                    finish();
+                    startProgram();
                 } else {
                     askForPermissions();
                 }
             }
+
 
             @Override
             public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
@@ -51,6 +50,12 @@ public class PermissionActivity extends AppCompatActivity {
         }).onSameThread().check();
     }
 
+
+    private void startProgram(){
+        Intent intent = new Intent(PermissionActivity.this, ListLocationsActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     protected void onResume() {
