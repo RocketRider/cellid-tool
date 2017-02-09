@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.rrsoftware.cellid_tool.R;
-import de.rrsoftware.cellid_tool.camera.CameraActivity;
+import de.rrsoftware.cellid_tool.camera.CameraViewActivity;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
 
 public class RegisterLocationActivity extends AppCompatActivity {
@@ -78,8 +78,8 @@ public class RegisterLocationActivity extends AppCompatActivity {
 
     @OnClick(R.id.addPicture)
     void addPicture() {
-        Intent intent = new Intent(this, CameraActivity.class);
-        intent.putExtra(CameraActivity.CELL_ID, cellId);
+        Intent intent = new Intent(this, CameraViewActivity.class);
+        intent.putExtra(CameraViewActivity.CELL_ID, cellId);
         startActivity(intent);
     }
 

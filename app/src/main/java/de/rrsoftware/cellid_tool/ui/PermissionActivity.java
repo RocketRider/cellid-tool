@@ -16,12 +16,11 @@ import java.util.List;
 import de.rrsoftware.cellid_tool.R;
 
 public class PermissionActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permission);
-        //askForPermissions();
+        askForPermissions();
     }
 
     private void askForPermissions() {
@@ -42,7 +41,6 @@ public class PermissionActivity extends AppCompatActivity {
                 }
             }
 
-
             @Override
             public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
                 token.continuePermissionRequest();
@@ -50,16 +48,9 @@ public class PermissionActivity extends AppCompatActivity {
         }).onSameThread().check();
     }
 
-
-    private void startProgram(){
+    private void startProgram() {
         Intent intent = new Intent(PermissionActivity.this, ListLocationsActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        askForPermissions();
     }
 }

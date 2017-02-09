@@ -29,6 +29,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
+    compile 'com.github.google:cameraview:a9d1eb9bad93dd8da981d380e37f58e35f847af5'
     compile 'com.karumi:dexter:3.0.2'
 
     testCompile 'junit:junit:4.12'
