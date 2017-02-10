@@ -1,4 +1,4 @@
-package de.rrsoftware.cellid_tool;
+package de.rrsoftware.cellid_tool.ui;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 
 import java.io.File;
 
+import de.rrsoftware.cellid_tool.R;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
 
 public class CellWidget extends AppWidgetProvider {

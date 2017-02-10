@@ -95,6 +95,7 @@ public class RegisterLocationActivity extends AppCompatActivity {
             Log.e(LOGTAG, "failed to parse location");
         }
         lm.addLocation(cellId, placeView.getText().toString(), latitude, longitude);
+        CellWidget.sendUpdate(this);
         finish();
     }
 
