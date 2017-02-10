@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Surface;
 import android.view.View;
 
 import com.google.android.cameraview.CameraView;
@@ -29,11 +30,26 @@ public class CameraViewActivity extends AppCompatActivity implements
         @Override
         public void onPictureTaken(CameraView cameraView, final byte[] data) {
             Log.d(LOGTAG, "take picture: " + cellId);
-            getBackgroundHandler().post(new ImageSaver(data, new File(getFilesDir(), cellId + ".jpg"), cameraView.getRotation()));
+            getBackgroundHandler().post(new ImageSaver(data, new File(getFilesDir(), cellId + ".jpg"), getRotation()));
             //CameraViewActivity.this.cameraView.stop();
             finish();
         }
     };
+
+    private int getRotation() {
+        final int orientation = getResources().getConfiguration().orientation;
+        int rotation = 0;
+        if (Surface.ROTATION_0 == orientation) {
+            rotation = 0;
+        } else if (Surface.ROTATION_180 == orientation) {
+            rotation = 180;
+        } else if (Surface.ROTATION_90 == orientation) {
+            rotation = 90;
+        } else if (Surface.ROTATION_270 == orientation) {
+            rotation = 270;
+        }
+        return rotation;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
