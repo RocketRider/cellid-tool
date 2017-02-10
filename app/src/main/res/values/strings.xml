@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">cellid-tool</string>
+    <string name="add_widget">Widget hinzufügen</string>
 </resources>

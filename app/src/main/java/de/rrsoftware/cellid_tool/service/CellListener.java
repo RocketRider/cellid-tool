@@ -14,6 +14,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import de.rrsoftware.cellid_tool.CellWidget;
 import de.rrsoftware.cellid_tool.R;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
 import de.rrsoftware.cellid_tool.ui.RegisterLocationActivity;
@@ -56,6 +57,8 @@ class CellListener extends PhoneStateListener {
         } else {
             Log.e(LOGTAG, "cellLocation is null");
         }
+
+        CellWidget.sendUpdate(context);
     }
 
     private void notityUser(int cellid) {

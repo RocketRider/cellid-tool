@@ -12,16 +12,20 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.rrsoftware.cellid_tool.CellWidget;
+
 public class CellLocationManager {
     private static String LOGTAG = "CellLocationManager";
     private static CellLocationManager instance;
 
     private File file;
     private File dir;
+    private final Context context;
     private Map<Integer, LocationItem> locations = new HashMap<>();
 
 
     private CellLocationManager(Context context) {
+        this.context = context;
         dir = context.getFilesDir();
         file = new File(dir, "map");
         loadLocations();
@@ -112,6 +116,8 @@ public class CellLocationManager {
                 Log.e(LOGTAG, "Open Stream failed");
             }
         }
+
+        CellWidget.sendUpdate(context);
     }
 
     public void deleteLocation(int cellId) {
