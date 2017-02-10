@@ -1,20 +1,20 @@
 package de.rrsoftware.cellid_tool.camera;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Surface;
-import android.view.View;
 
 import com.google.android.cameraview.CameraView;
 
 import java.io.File;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.rrsoftware.cellid_tool.R;
 
 public class CameraViewActivity extends AppCompatActivity implements
@@ -22,7 +22,8 @@ public class CameraViewActivity extends AppCompatActivity implements
     private static final String LOGTAG = "CamActivity";
     public static final String CELL_ID = "CellId";
 
-    private CameraView cameraView;
+    @BindView(R.id.camera)
+    CameraView cameraView;
     private Handler backgroundHandler;
     private int cellId;
 
@@ -31,10 +32,16 @@ public class CameraViewActivity extends AppCompatActivity implements
         public void onPictureTaken(CameraView cameraView, final byte[] data) {
             Log.d(LOGTAG, "take picture: " + cellId);
             getBackgroundHandler().post(new ImageSaver(data, new File(getFilesDir(), cellId + ".jpg"), getRotation()));
-            //CameraViewActivity.this.cameraView.stop();
             finish();
         }
     };
+
+    @OnClick(R.id.take_picture)
+    void takePicture() {
+        if (cameraView != null && cameraView.isCameraOpened()) {
+            cameraView.takePicture();
+        }
+    }
 
     private int getRotation() {
         final int orientation = getResources().getConfiguration().orientation;
@@ -55,21 +62,8 @@ public class CameraViewActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_view);
-        cameraView = (CameraView) findViewById(R.id.camera);
-        if (cameraView != null) {
-            cameraView.addCallback(cameraCallback);
-        }
-        FloatingActionButton takePicture = (FloatingActionButton) findViewById(R.id.take_picture);
-        if (takePicture != null) {
-            takePicture.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (cameraView != null && cameraView.isCameraOpened()) {
-                        cameraView.takePicture();
-                    }
-                }
-            });
-        }
+        ButterKnife.bind(this);
+        cameraView.addCallback(cameraCallback);
         cellId = getIntent().getIntExtra(CELL_ID, 0);
     }
 
@@ -89,11 +83,7 @@ public class CameraViewActivity extends AppCompatActivity implements
     protected void onDestroy() {
         super.onDestroy();
         if (backgroundHandler != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                backgroundHandler.getLooper().quitSafely();
-            } else {
-                backgroundHandler.getLooper().quit();
-            }
+            backgroundHandler.getLooper().quitSafely();
             backgroundHandler = null;
         }
     }
