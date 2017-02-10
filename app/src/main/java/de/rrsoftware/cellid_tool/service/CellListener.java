@@ -20,13 +20,13 @@ import de.rrsoftware.cellid_tool.ui.RegisterLocationActivity;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
-public class CellListener extends PhoneStateListener {
+class CellListener extends PhoneStateListener {
     private static final String LOGTAG = "CellListener";
     private Context context;
     private TelephonyManager tm;
     private CellLocationManager lc;
 
-    public CellListener(Context context, TelephonyManager tm) {
+    CellListener(Context context, TelephonyManager tm) {
         this.context = context;
         this.tm = tm;
         lc = CellLocationManager.getInstance(context);
@@ -53,7 +53,7 @@ public class CellListener extends PhoneStateListener {
             } else {
                 Log.d(LOGTAG, "Already known cell: " + cellLocation.toString());
             }
-        }else{
+        } else {
             Log.e(LOGTAG, "cellLocation is null");
         }
     }

@@ -116,7 +116,9 @@ public class CellLocationManager {
 
     public void deleteLocation(int cellId) {
         locations.remove(cellId);
-        new File(dir, cellId + ".jpg").delete();
+        if (new File(dir, cellId + ".jpg").delete()) {
+            Log.e(LOGTAG, "failed to delete file: " + cellId);
+        }
         saveLocations();
     }
 }

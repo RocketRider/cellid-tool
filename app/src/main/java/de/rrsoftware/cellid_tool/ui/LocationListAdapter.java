@@ -16,16 +16,17 @@ import java.io.File;
 import de.rrsoftware.cellid_tool.R;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
 
-public class LocationListAdapter extends ArrayAdapter<Integer> {
+class LocationListAdapter extends ArrayAdapter<Integer> {
     private CellLocationManager lm;
 
 
-    public LocationListAdapter(Context context, Integer[] objects) {
+    LocationListAdapter(Context context, Integer[] objects) {
         super(context, -1, objects);
         lm = CellLocationManager.getInstance(context);
     }
 
 
+    @NonNull
     @Override
     public View getView(final int position, final View convertView, final @NonNull ViewGroup parent) {
         final int cellId = getItem(position);
