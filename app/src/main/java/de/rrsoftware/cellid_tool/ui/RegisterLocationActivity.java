@@ -57,7 +57,7 @@ public class RegisterLocationActivity extends AppCompatActivity {
         if (lm.isCellKnown(cellId)) {
             cidView.setText(String.valueOf(cellId));
 
-            if (placeView.getText().length() == 0){
+            if (placeView.getText().length() == 0) {
                 placeView.setText(lm.getDescription(cellId));
             }
 
@@ -65,8 +65,10 @@ public class RegisterLocationActivity extends AppCompatActivity {
             longitudeView.setText(String.valueOf(lm.getLongitude(cellId)));
         } else {
             Location gpsLocation = getGPSLocation();
-            latitudeView.setText(String.valueOf(gpsLocation.getLatitude()));
-            longitudeView.setText(String.valueOf(gpsLocation.getLongitude()));
+            if (gpsLocation != null) {
+                latitudeView.setText(String.valueOf(gpsLocation.getLatitude()));
+                longitudeView.setText(String.valueOf(gpsLocation.getLongitude()));
+            }
         }
 
         File imageFile = new File(getFilesDir(), cellId + ".jpg");

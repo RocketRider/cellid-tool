@@ -30,7 +30,7 @@ public class CameraViewActivity extends AppCompatActivity implements
         public void onPictureTaken(CameraView cameraView, final byte[] data) {
             Log.d(LOGTAG, "take picture: " + cellId);
             getBackgroundHandler().post(new ImageSaver(data, new File(getFilesDir(), cellId + ".jpg"), cameraView.getRotation()));
-            CameraViewActivity.this.cameraView.stop();
+            //CameraViewActivity.this.cameraView.stop();
             finish();
         }
     };
