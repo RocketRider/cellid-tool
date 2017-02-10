@@ -2,6 +2,7 @@ package de.rrsoftware.cellid_tool.camera;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.util.Log;
 
 import java.io.File;
@@ -14,17 +15,20 @@ import java.io.IOException;
 class ImageSaver implements Runnable {
     private static String LOGTAG = "ImageServer";
     private static final float MAX_SIZE = 128;
-    private final byte[] mImage;
-    private final File mFile;
+    private final byte[] image;
+    private final File file;
+    private final float angle;
 
-    ImageSaver(byte[] image, File file) {
-        mImage = image;
-        mFile = file;
+    ImageSaver(byte[] image, File file, float angle) {
+        this.image = image;
+        this.file = file;
+        this.angle = angle;
     }
+
 
     @Override
     public void run() {
-        Bitmap image = BitmapFactory.decodeByteArray(mImage, 0, mImage.length);
+        Bitmap image = BitmapFactory.decodeByteArray(this.image, 0, this.image.length);
         int oWidth = image.getWidth();
         int oHeight = image.getHeight();
         float scale;
@@ -36,10 +40,15 @@ class ImageSaver implements Runnable {
         }
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, (int) (oWidth * scale), (int) (oHeight * scale), true);
 
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+
+
         FileOutputStream output = null;
         try {
-            output = new FileOutputStream(mFile);
-            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 99, output);
+            output = new FileOutputStream(file);
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 99, output);
         } catch (IOException e) {
             Log.e(LOGTAG, "save failed", e);
         } finally {
