@@ -102,6 +102,7 @@ public class RegisterLocationActivity extends AppCompatActivity {
     @OnClick(R.id.delete)
     void delete() {
         lm.deleteLocation(cellId);
+        CellWidget.sendUpdate(this);
         finish();
     }
 
