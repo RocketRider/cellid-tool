@@ -1,4 +1,4 @@
-package de.rrsoftware.cellid_tool.camera;
+package de.rrsoftware.cellid_tool.ui.camera;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

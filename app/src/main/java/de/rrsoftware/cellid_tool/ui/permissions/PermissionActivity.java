@@ -1,4 +1,4 @@
-package de.rrsoftware.cellid_tool.ui;
+package de.rrsoftware.cellid_tool.ui.permissions;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.util.List;
 
 import de.rrsoftware.cellid_tool.R;
+import de.rrsoftware.cellid_tool.ui.locations.ListLocationsActivity;
 
 public class PermissionActivity extends AppCompatActivity {
     @Override

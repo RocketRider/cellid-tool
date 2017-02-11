@@ -1,4 +1,4 @@
-package de.rrsoftware.cellid_tool.ui;
+package de.rrsoftware.cellid_tool.ui.locations;
 
 import android.content.Context;
 import android.content.Intent;

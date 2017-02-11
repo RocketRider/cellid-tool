@@ -1,4 +1,4 @@
-package de.rrsoftware.cellid_tool.ui;
+package de.rrsoftware.cellid_tool.ui.locations;
 
 import android.content.Intent;
 import android.location.Location;
@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.rrsoftware.cellid_tool.R;
-import de.rrsoftware.cellid_tool.camera.CameraViewActivity;
+import de.rrsoftware.cellid_tool.ui.camera.CameraViewActivity;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
 
 public class RegisterLocationActivity extends AppCompatActivity {

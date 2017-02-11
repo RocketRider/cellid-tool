@@ -14,10 +14,10 @@ import android.util.Log;
 
 import java.util.List;
 
-import de.rrsoftware.cellid_tool.ui.CellWidget;
+import de.rrsoftware.cellid_tool.ui.locations.CellWidget;
 import de.rrsoftware.cellid_tool.R;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
-import de.rrsoftware.cellid_tool.ui.RegisterLocationActivity;
+import de.rrsoftware.cellid_tool.ui.locations.RegisterLocationActivity;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 

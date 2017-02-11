@@ -16,8 +16,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ListLocationsActivity" />
-        <activity android:name=".ui.RegisterLocationActivity" />
+        <activity android:name=".ui.locations.ListLocationsActivity" />
+        <activity android:name=".ui.locations.RegisterLocationActivity" />
 
         <receiver
             android:name=".service.BootCompleted"
@@ -33,17 +33,17 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".camera.CameraActivity" />
-        <activity android:name=".ui.PermissionActivity">
+        <activity android:name=".ui.camera.CameraActivity" />
+        <activity android:name=".ui.permissions.PermissionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".camera.CameraViewActivity" />
+        <activity android:name=".ui.camera.CameraViewActivity" />
 
-        <receiver android:name=".ui.CellWidget">
+        <receiver android:name=".ui.locations.CellWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
