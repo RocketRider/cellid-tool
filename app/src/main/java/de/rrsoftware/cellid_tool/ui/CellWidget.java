@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
@@ -44,10 +45,9 @@ public class CellWidget extends AppWidgetProvider {
 
         File imageFile = new File(context.getFilesDir(), cellId + ".jpg");
         if (imageFile.exists()) {
-            views.setImageViewBitmap(R.id.icon, null);
-            views.setImageViewUri(R.id.icon, Uri.fromFile(imageFile));
+            views.setImageViewBitmap(R.id.widgetIcon, BitmapFactory.decodeFile(imageFile.getAbsolutePath()));
         } else {
-            views.setImageViewResource(R.id.icon, R.drawable.ic_image_black_24dp);
+            views.setImageViewResource(R.id.widgetIcon, R.drawable.ic_image_black_24dp);
         }
 
         views.setTextViewText(R.id.text, desc);
