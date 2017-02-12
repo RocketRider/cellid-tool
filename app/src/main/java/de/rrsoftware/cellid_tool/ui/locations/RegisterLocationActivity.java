@@ -17,8 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.rrsoftware.cellid_tool.R;
-import de.rrsoftware.cellid_tool.ui.camera.CameraViewActivity;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
+import de.rrsoftware.cellid_tool.ui.camera.CameraViewActivity;
 
 public class RegisterLocationActivity extends AppCompatActivity {
     private static final String LOGTAG = "RegisterActivity";
@@ -54,9 +54,8 @@ public class RegisterLocationActivity extends AppCompatActivity {
         super.onResume();
 
         cellId = getIntent().getIntExtra(CELL_ID, 0);
+        cidView.setText(String.valueOf(cellId));
         if (lm.isCellKnown(cellId)) {
-            cidView.setText(String.valueOf(cellId));
-
             if (placeView.getText().length() == 0) {
                 placeView.setText(lm.getDescription(cellId));
             }

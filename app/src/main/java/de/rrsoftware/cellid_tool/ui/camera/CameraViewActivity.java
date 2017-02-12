@@ -3,6 +3,7 @@ package de.rrsoftware.cellid_tool.ui.camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -32,7 +33,7 @@ public class CameraViewActivity extends AppCompatActivity implements
         public void onPictureTaken(CameraView cameraView, final byte[] data) {
             Log.d(LOGTAG, "take picture: " + cellId);
             getBackgroundHandler().post(new ImageSaver(data, new File(getFilesDir(), cellId + ".jpg"), getRotation()));
-            finish();
+            closeActivity();
         }
     };
 
@@ -41,6 +42,17 @@ public class CameraViewActivity extends AppCompatActivity implements
         if (cameraView != null && cameraView.isCameraOpened()) {
             cameraView.takePicture();
         }
+    }
+
+    //Delayed finish is needed, because the Camera is still take the picture...
+    private void closeActivity() {
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 250);
     }
 
     private int getRotation() {
