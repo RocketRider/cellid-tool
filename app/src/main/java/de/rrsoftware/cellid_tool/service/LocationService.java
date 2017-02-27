@@ -12,7 +12,7 @@ public class LocationService extends Service {
     private CellListener listener;
 
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(final Intent intent) {
         // don't provide binding, so return null
         return null;
     }

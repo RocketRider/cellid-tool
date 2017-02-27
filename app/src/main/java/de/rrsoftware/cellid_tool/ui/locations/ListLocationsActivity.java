@@ -16,13 +16,13 @@ public class ListLocationsActivity extends AppCompatActivity {
     ListView listView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_locations);
         ButterKnife.bind(this);
 
         //If the service is not running, it will be started now
-        Intent serviceIntent = new Intent(this, LocationService.class);
+        final Intent serviceIntent = new Intent(this, LocationService.class);
         startService(serviceIntent);
     }
 
@@ -31,7 +31,7 @@ public class ListLocationsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        CellLocationManager lm = CellLocationManager.getInstance(this);
+        final CellLocationManager lm = CellLocationManager.getInstance(this);
         listView.setAdapter(new LocationListAdapter(this, lm.getAllCellIds()));
     }
 }

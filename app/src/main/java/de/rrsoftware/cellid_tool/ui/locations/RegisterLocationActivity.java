@@ -42,7 +42,7 @@ public class RegisterLocationActivity extends AppCompatActivity {
     ImageView imageView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_location);
         ButterKnife.bind(this);
@@ -63,14 +63,14 @@ public class RegisterLocationActivity extends AppCompatActivity {
             latitudeView.setText(String.valueOf(lm.getLatitude(cellId)));
             longitudeView.setText(String.valueOf(lm.getLongitude(cellId)));
         } else {
-            Location gpsLocation = getGPSLocation();
+            final Location gpsLocation = getGPSLocation();
             if (gpsLocation != null) {
                 latitudeView.setText(String.valueOf(gpsLocation.getLatitude()));
                 longitudeView.setText(String.valueOf(gpsLocation.getLongitude()));
             }
         }
 
-        File imageFile = new File(getFilesDir(), cellId + ".jpg");
+        final File imageFile = new File(getFilesDir(), cellId + ".jpg");
         if (imageFile.exists()) {
             imageView.setImageDrawable(null);
             imageView.setImageURI(Uri.fromFile(imageFile));
@@ -79,7 +79,7 @@ public class RegisterLocationActivity extends AppCompatActivity {
 
     @OnClick(R.id.addPicture)
     void addPicture() {
-        Intent intent = new Intent(this, CameraViewActivity.class);
+        final Intent intent = new Intent(this, CameraViewActivity.class);
         intent.putExtra(CameraViewActivity.CELL_ID, cellId);
         startActivity(intent);
     }
@@ -107,7 +107,7 @@ public class RegisterLocationActivity extends AppCompatActivity {
 
 
     private Location getGPSLocation() {
-        LocationManager locationManager = (LocationManager)
+        final LocationManager locationManager = (LocationManager)
                 getSystemService(LOCATION_SERVICE);
         return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }

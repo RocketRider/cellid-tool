@@ -18,7 +18,7 @@ import de.rrsoftware.cellid_tool.ui.locations.ListLocationsActivity;
 
 public class PermissionActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permission);
         askForPermissions();
@@ -34,7 +34,7 @@ public class PermissionActivity extends AppCompatActivity {
                         Manifest.permission.RECEIVE_BOOT_COMPLETED
                 ).withListener(new MultiplePermissionsListener() {
             @Override
-            public void onPermissionsChecked(MultiplePermissionsReport report) {
+            public void onPermissionsChecked(final MultiplePermissionsReport report) {
                 if (report.areAllPermissionsGranted()) {
                     startProgram();
                 } else {
@@ -43,14 +43,14 @@ public class PermissionActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+            public void onPermissionRationaleShouldBeShown(final List<PermissionRequest> permissions, PermissionToken token) {
                 token.continuePermissionRequest();
             }
         }).onSameThread().check();
     }
 
     private void startProgram() {
-        Intent intent = new Intent(PermissionActivity.this, ListLocationsActivity.class);
+        final Intent intent = new Intent(PermissionActivity.this, ListLocationsActivity.class);
         startActivity(intent);
         finish();
     }

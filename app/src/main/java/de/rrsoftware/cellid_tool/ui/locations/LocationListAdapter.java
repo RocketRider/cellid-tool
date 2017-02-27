@@ -17,10 +17,10 @@ import de.rrsoftware.cellid_tool.R;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
 
 class LocationListAdapter extends ArrayAdapter<Integer> {
-    private CellLocationManager lm;
+    private final CellLocationManager lm;
 
 
-    LocationListAdapter(Context context, Integer[] objects) {
+    LocationListAdapter(final Context context, final Integer[] objects) {
         super(context, -1, objects);
         lm = CellLocationManager.getInstance(context);
     }
@@ -31,27 +31,27 @@ class LocationListAdapter extends ArrayAdapter<Integer> {
     public View getView(final int position, final View convertView, final @NonNull ViewGroup parent) {
         final int cellId = getItem(position);
 
-        LayoutInflater inflater = (LayoutInflater) getContext()
+        final LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.location_item, parent, false);
+        final View rowView = inflater.inflate(R.layout.location_item, parent, false);
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RegisterLocationActivity.class);
+            public void onClick(final View v) {
+                final Intent intent = new Intent(getContext(), RegisterLocationActivity.class);
                 intent.putExtra(RegisterLocationActivity.CELL_ID, cellId);
                 getContext().startActivity(intent);
             }
         });
 
-        TextView cidView = (TextView) rowView.findViewById(R.id.cid);
-        TextView descView = (TextView) rowView.findViewById(R.id.desc);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+        final TextView cidView = (TextView) rowView.findViewById(R.id.cid);
+        final TextView descView = (TextView) rowView.findViewById(R.id.desc);
+        final ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 
         cidView.setText(String.valueOf(cellId));
         descView.setText(lm.getDescription(cellId));
 
-        File imageFile = new File(getContext().getFilesDir(), cellId + ".jpg");
+        final File imageFile = new File(getContext().getFilesDir(), cellId + ".jpg");
         if (imageFile.exists()) {
             imageView.setImageDrawable(null);
             imageView.setImageURI(Uri.fromFile(imageFile));

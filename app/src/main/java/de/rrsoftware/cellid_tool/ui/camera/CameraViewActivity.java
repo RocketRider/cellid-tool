@@ -30,7 +30,7 @@ public class CameraViewActivity extends AppCompatActivity implements
 
     private CameraView.Callback cameraCallback = new CameraView.Callback() {
         @Override
-        public void onPictureTaken(CameraView cameraView, final byte[] data) {
+        public void onPictureTaken(final CameraView cameraView, final byte[] data) {
             Log.d(LOGTAG, "take picture: " + cellId);
             getBackgroundHandler().post(new ImageSaver(data, new File(getFilesDir(), cellId + ".jpg"), getRotation()));
             closeActivity();
@@ -71,7 +71,7 @@ public class CameraViewActivity extends AppCompatActivity implements
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_view);
         ButterKnife.bind(this);

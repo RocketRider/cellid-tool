@@ -16,20 +16,20 @@ import de.rrsoftware.cellid_tool.R;
 import de.rrsoftware.cellid_tool.model.CellLocationManager;
 
 public class CellWidget extends AppWidgetProvider {
-    public static void sendUpdate(Context context) {
-        Intent intent = new Intent(context, CellWidget.class);
+    public static void sendUpdate(final Context context) {
+        final Intent intent = new Intent(context, CellWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        int ids[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, CellWidget.class));
+        final int ids[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, CellWidget.class));
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
         context.sendBroadcast(intent);
     }
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-        CellLocationManager lc = CellLocationManager.getInstance(context);
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+    static void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
+                                final int appWidgetId) {
+        final CellLocationManager lc = CellLocationManager.getInstance(context);
+        final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.cell_widget);
+        final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.cell_widget);
         String desc = "Unbekannt";
         int cellId = 0;
         if (tm != null) {
@@ -54,8 +54,8 @@ public class CellWidget extends AppWidgetProvider {
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for (int appWidgetId : appWidgetIds) {
+    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
+        for (final int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }

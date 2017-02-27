@@ -13,13 +13,13 @@ import java.io.IOException;
  * Saves a JPEG Image into the specified File.
  */
 class ImageSaver implements Runnable {
-    private static String LOGTAG = "ImageServer";
+    private static final String LOGTAG = "ImageServer";
     private static final float MAX_SIZE = 128;
     private final byte[] image;
     private final File file;
     private final float angle;
 
-    ImageSaver(byte[] image, File file, float angle) {
+    ImageSaver(final byte[] image, final File file, final float angle) {
         this.image = image;
         this.file = file;
         this.angle = angle;
@@ -28,21 +28,21 @@ class ImageSaver implements Runnable {
 
     @Override
     public void run() {
-        Bitmap image = BitmapFactory.decodeByteArray(this.image, 0, this.image.length);
-        int oWidth = image.getWidth();
-        int oHeight = image.getHeight();
-        float scale;
+        final Bitmap image = BitmapFactory.decodeByteArray(this.image, 0, this.image.length);
+        final int oWidth = image.getWidth();
+        final int oHeight = image.getHeight();
+        final float scale;
 
         if (oWidth > oHeight) {
             scale = MAX_SIZE / oWidth;
         } else {
             scale = MAX_SIZE / oHeight;
         }
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, (int) (oWidth * scale), (int) (oHeight * scale), true);
+        final Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, (int) (oWidth * scale), (int) (oHeight * scale), true);
 
-        Matrix matrix = new Matrix();
+        final Matrix matrix = new Matrix();
         matrix.postRotate(angle);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+        final Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
 
 
         FileOutputStream output = null;

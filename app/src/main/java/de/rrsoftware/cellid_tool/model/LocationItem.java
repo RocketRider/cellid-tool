@@ -8,7 +8,7 @@ class LocationItem implements Serializable {
     private double latitude;
     private double longitude;
 
-    LocationItem(String desc, double latitude, double longitude) {
+    LocationItem(final String desc, final double latitude, final double longitude) {
         this.desc = desc;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -26,14 +26,14 @@ class LocationItem implements Serializable {
         return longitude;
     }
 
-    private void writeObject(java.io.ObjectOutputStream stream)
+    private void writeObject(final java.io.ObjectOutputStream stream)
             throws IOException {
         stream.writeObject(desc);
         stream.writeDouble(latitude);
         stream.writeDouble(longitude);
     }
 
-    private void readObject(java.io.ObjectInputStream stream)
+    private void readObject(final java.io.ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
         desc = (String) stream.readObject();
         latitude = stream.readDouble();

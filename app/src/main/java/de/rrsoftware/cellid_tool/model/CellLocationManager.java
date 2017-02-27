@@ -13,20 +13,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CellLocationManager {
-    private static String LOGTAG = "CellLocationManager";
+    private static final String LOGTAG = "CellLocationManager";
     private static CellLocationManager instance;
 
-    private File file;
-    private File dir;
+    private final File file;
+    private final File dir;
     private Map<Integer, LocationItem> locations = new HashMap<>();
 
-    private CellLocationManager(Context context) {
+    private CellLocationManager(final Context context) {
         dir = context.getFilesDir();
         file = new File(dir, "map");
         loadLocations();
     }
 
-    public static CellLocationManager getInstance(Context context) {
+    public static CellLocationManager getInstance(final Context context) {
         if (instance == null) {
             instance = new CellLocationManager(context);
         }
@@ -66,7 +66,7 @@ public class CellLocationManager {
         return locations.containsKey(cellid);
     }
 
-    public void addLocation(int cellid, String desc, double latitude, double longitude) {
+    public void addLocation(final int cellid, final String desc, final double latitude, final double longitude) {
         locations.put(cellid, new LocationItem(desc, latitude, longitude));
         saveLocations();
     }
@@ -77,7 +77,7 @@ public class CellLocationManager {
         try {
             stream = new ObjectInputStream(new FileInputStream(file));
             locations = (Map<Integer, LocationItem>) stream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException | ClassCastException e) {
             Log.e(LOGTAG, "failed to open stream", e);
         } finally {
             if (stream != null) {
@@ -113,7 +113,7 @@ public class CellLocationManager {
         }
     }
 
-    public void deleteLocation(int cellId) {
+    public void deleteLocation(final int cellId) {
         locations.remove(cellId);
         if (new File(dir, cellId + ".jpg").delete()) {
             Log.e(LOGTAG, "failed to delete file: " + cellId);
